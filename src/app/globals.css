@@ -142,6 +142,10 @@ img {
 }
 
 /* Long-form copy inside MDX pages. */
+.prose {
+  overflow-wrap: break-word;
+}
+
 .prose > * + * {
   margin-top: 1.1em;
 }
@@ -218,6 +222,10 @@ img {
 }
 
 /* Print is always ink on white, whatever theme is on screen. */
+@page {
+  margin: 0.6in 0.7in;
+}
+
 @media print {
   :root,
   [data-theme="dark"] {

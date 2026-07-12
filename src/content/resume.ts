@@ -1,5 +1,11 @@
-// The resume, as data. The page and the printable PDF both render from
-// this, so there is exactly one copy to keep true.
+// The resume, as data. The page renders from this, and the downloadable
+// PDF is generated from that page: after editing, run
+// scripts/make-resume-pdf.sh and commit the refreshed PDF alongside.
+//
+// This is the public-web version, kept to the same register as my
+// LinkedIn profile: employers named, no internal metrics, no incident
+// war stories with numbers attached. The detailed private resume lives
+// elsewhere.
 
 export type Role = {
   company: string;
@@ -44,14 +50,13 @@ export const resume = {
       context: "Healthcare technology, pharmacy benefits management",
       dates: "2025 to present",
       bullets: [
-        "Led a cross-system data quality initiative spanning 3 repositories that corrected 300,000+ pharmacy claims, uncovering a type-mismatch bug that had silently disabled an entire eligibility exclusion system, and executing production backfills through formal change control",
-        "Resolved CEO-escalated P1 reporting crises by root-causing deleted-record leakage and missing query deduplication, delivering 3 corrected partner reports on a compressed timeline and leaving behind a reusable correction runbook",
-        "Built a CLI migration validation tool with 24 automated checks and 82 unit tests that verified 150 migrated groups during a legacy-to-modern claims platform migration, providing quantitative evidence of data integrity before decommission",
-        "Leading a cross-functional Historical Claims Import initiative as engineering lead, producing a 5-phase tech plan with 8 implementation tickets and coordinating product, engineering, and data teams",
-        "Built Python automation for production claims analysis that cut batch processing from 4-6 hours to 5 minutes, adopted as the standard workflow by Claims Operations for 10+ batches per month with zero production bugs",
-        "Designed GraphQL APIs providing cost calculation transparency for 100% of pharmacy claims, migrating AWS SDK v1 to v2 and reducing frontend duplication by 28% through GraphQL fragments",
-        "Investigated and resolved P0 production incidents affecting 140+ partner organizations and up to 1.88M claims, from root cause analysis through data remediation to runbooks that prevent recurrence",
-        "Maintained working expertise across 8 repositories, performing 100+ code reviews per quarter and catching security vulnerabilities, nil-pointer dereferences, and race conditions before they shipped",
+        "Led cross-system data quality initiatives across the claims pipeline, finding and fixing systemic issues that affected hundreds of thousands of records, with production corrections delivered through formal change control",
+        "Investigated and resolved escalated production reporting incidents through root cause analysis, and wrote the correction runbooks so the fixes outlived the incidents",
+        "Built a CLI validation tool with dozens of automated checks and a thorough unit test suite, providing quantitative evidence of data integrity during a legacy-to-modern claims platform migration",
+        "Leading the Historical Claims Import initiative as engineering lead, coordinating delivery across product, engineering, and data teams",
+        "Built Python automation for production claims analysis that turned hours of manual batch work into minutes, adopted as the operations team's standard workflow",
+        "Designed GraphQL APIs bringing cost calculation transparency to pharmacy claims, with Relay-compliant patterns, graceful degradation for older data, and shared fragments that cut frontend duplication",
+        "Performed 100+ code reviews per quarter across 8 repositories, catching security vulnerabilities, data integrity bugs, and race conditions before they shipped",
       ],
     },
     {

@@ -31,5 +31,6 @@ Drop a new `.mdx` file in `src/content/projects/` with the same
 frontmatter shape as the existing ones (title, summary, year, tech,
 links, order). The index and the project page pick it up at build time.
 
-The resume is data in `src/content/resume.ts`; the page and the
-downloadable PDF both render from it.
+The resume is data in `src/content/resume.ts`. After editing it, run
+`scripts/make-resume-pdf.sh` to regenerate the downloadable PDF from the
+page's print styles, and commit the two together.
