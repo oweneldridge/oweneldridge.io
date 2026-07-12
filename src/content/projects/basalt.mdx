@@ -1,0 +1,37 @@
+---
+title: Basalt
+summary: An open-source, local-first Markdown knowledge base that stays compatible with Obsidian vaults.
+year: "2026"
+tech:
+  - Tauri 2
+  - React
+  - TypeScript
+  - CodeMirror 6
+links:
+  - label: Source on GitHub
+    href: https://github.com/oweneldridge/basalt
+order: 1
+---
+
+Basalt is my answer to a question I kept circling: what happens to a decade
+of notes when the app that holds them changes hands, changes terms, or just
+changes? It is a desktop knowledge base that reads and writes plain Markdown
+folders, fully compatible with Obsidian vaults, so the notes never belong to
+the tool.
+
+The app is built on Tauri 2 with a React front end and a CodeMirror 6
+editing core. Getting live-preview Markdown editing right, where the syntax
+melts away as you move through it, meant going deep on CodeMirror
+decorations and state fields rather than reaching for a prebuilt editor.
+
+Basalt is AGPL licensed and aims for parity with the core features people
+actually rely on, plus its own plugin API. It deliberately does not chase
+compatibility with Obsidian's plugin ecosystem; the point is a codebase that
+can be understood, audited, and kept alive by its community.
+
+## What it demonstrates
+
+Desktop application architecture across a Rust/webview boundary, serious
+editor internals work, and API design for extensibility. Also a thesis I
+hold about software: files over silos, and tools that respect the person
+using them.

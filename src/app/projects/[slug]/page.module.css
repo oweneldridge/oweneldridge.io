@@ -1,0 +1,42 @@
+.article {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
+  width: 100%;
+}
+
+.back {
+  font-size: 0.9rem;
+}
+
+.back a {
+  color: var(--ink-muted);
+}
+
+.header {
+  margin: 1.75rem 0 2.25rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+.title {
+  font-size: clamp(1.9rem, 5vw, 2.4rem);
+}
+
+.meta {
+  margin-top: 1.25rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.metaRow {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.metaRow dt {
+  flex: 0 0 5.5rem;
+  color: var(--ink-muted);
+  font-style: italic;
+}

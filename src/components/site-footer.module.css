@@ -1,0 +1,32 @@
+.footer {
+  max-width: 44rem;
+  margin: auto auto 0;
+  padding: 2rem 1.25rem 2.5rem;
+  width: 100%;
+  border-top: 1px solid var(--rule-soft);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  list-style: none;
+}
+
+.links a {
+  font-size: 0.95rem;
+}
+
+.colophon {
+  margin-top: 0.9rem;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--ink-muted);
+}
+
+/* Keep the contact links on a printed page, drop the colophon. */
+@media print {
+  .colophon {
+    display: none;
+  }
+}
