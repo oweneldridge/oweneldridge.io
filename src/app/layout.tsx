@@ -1,19 +1,41 @@
 import type { Metadata } from "next";
-import { Fraunces, Newsreader } from "next/font/google";
+import localFont from "next/font/local";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import "./globals.css";
 
-const display = Fraunces({
+// Fraunces and Newsreader, vendored under src/fonts (OFL, license files
+// alongside) so nothing is fetched from Google at build time or ever.
+const display = localFont({
   variable: "--font-display",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
+  src: [
+    {
+      path: "../fonts/fraunces-latin-standard-normal.woff2",
+      weight: "100 900",
+      style: "normal",
+    },
+    {
+      path: "../fonts/fraunces-latin-standard-italic.woff2",
+      weight: "100 900",
+      style: "italic",
+    },
+  ],
 });
 
-const text = Newsreader({
+const text = localFont({
   variable: "--font-text",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
+  src: [
+    {
+      path: "../fonts/newsreader-latin-standard-normal.woff2",
+      weight: "100 900",
+      style: "normal",
+    },
+    {
+      path: "../fonts/newsreader-latin-standard-italic.woff2",
+      weight: "100 900",
+      style: "italic",
+    },
+  ],
 });
 
 export const metadata: Metadata = {
