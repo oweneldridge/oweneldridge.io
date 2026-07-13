@@ -1,0 +1,35 @@
+---
+title: Eleventh House
+summary: A collage-styled community site for an arts collective, with self-serve membership and a curated gallery.
+year: "2026"
+tech:
+  - Next.js
+  - Payload CMS
+  - PostgreSQL
+  - Vercel
+links: []
+order: 6
+---
+
+Eleventh House is the web home I am building for a small arts collective:
+part gallery, part bulletin board, part front door for people who want to
+join. The visual language is collage, closer to a zine than a SaaS landing
+page, and the build serves that instead of flattening it.
+
+Under the hood it is Next.js with Payload as the CMS, so the collective
+manages its own content: gallery pieces, events, bulletin posts, and the
+site's copy itself are all editable by non-developers through the admin
+panel. Join requests flow through the site with admin approval, and the
+admin navigation mirrors the site's own structure so editors always know
+where they are.
+
+The project runs on free-tier infrastructure by design, because a
+collective's website should not have a burn rate. That constraint shaped
+real engineering decisions around storage, database choice, and build-time
+work.
+
+## What it demonstrates
+
+Building for non-technical editors, content modeling in a headless CMS,
+and shipping something expressive on a zero-dollar budget. Also the
+difference between making a site and making a place.

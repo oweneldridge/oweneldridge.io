@@ -1,0 +1,42 @@
+---
+title: Local audiobook pipeline
+summary: Ebooks in, narrated audiobooks out. Neural TTS running on my own hardware, no cloud voices involved.
+year: "2026"
+tech:
+  - Python
+  - Kokoro TTS
+  - FFmpeg
+  - systemd
+  - Docker
+links:
+  - label: Converter on GitHub
+    href: https://github.com/oweneldridge/audiobook-creator-tts
+order: 3
+---
+
+Most read-aloud features today are a thin wrapper around a big-tech cloud
+voice. I wanted audiobooks from my ebook library without any of my reading
+leaving the house, so I built the pipeline myself.
+
+The synthesis end is Kokoro, a neural TTS model served from my home server
+with an OpenAI-compatible API, running entirely on CPU. The converter takes
+an EPUB or PDF and produces a proper .m4b: chapters derived from the book's
+table of contents, embedded cover art, and a voice picked to suit the
+material.
+
+Around the converter sits the automation that makes it a pipeline rather
+than a script: a queue directory watched by a systemd timer, a render worker
+on the server, and an import step that files finished books into
+Audiobookshelf, where they sync to my devices. Queue a book at night, wake
+up to an audiobook.
+
+The same Kokoro server also powers read-aloud in my desktop ebook reader
+through a small custom voice plugin, replacing a feature that would
+otherwise have gone through Microsoft's cloud.
+
+## What it demonstrates
+
+Practical ML serving on modest hardware, audio and metadata wrangling with
+FFmpeg, and unglamorous-but-honest systems glue: queues, timers, idempotent
+imports. Built around a conviction that convenience should not cost you
+your privacy.

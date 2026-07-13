@@ -1,0 +1,41 @@
+---
+title: Spectre, a self-hosted everything
+summary: Twenty-nine containers on a repurposed laptop, replacing a household's worth of cloud subscriptions.
+year: "2025 to now"
+tech:
+  - Arch Linux
+  - Docker
+  - Tailscale
+  - PostgreSQL
+  - Bash
+links: []
+order: 4
+---
+
+Spectre is an HP laptop that stopped being a laptop and became the family
+infrastructure: media server, photo library, password manager, document
+archive, ebook library, and an offline copy of Wikipedia, all self-hosted
+on Arch Linux and Docker. Twenty-nine containers, zero restart loops, and
+no subscription renewals.
+
+The design principle is that nothing is reachable from the public internet.
+Every service sits behind Tailscale with per-service HTTPS, download
+traffic is pinned inside a VPN tunnel that fails closed, and I verified the
+isolation by checking egress IPs rather than trusting the config. Backups
+are layered: nightly local mirrors with database dumps, versioned document
+history, and an encrypted offsite set.
+
+The part I am proudest of is not the uptime, it is the honesty. This year I
+ran a full adversarial audit of my own stack: parallel inspectors combing
+containers, permissions, backups, and network exposure, with findings
+verified before they counted. The audit surfaced real problems, including a
+malicious torrent quietly seeding, world-readable secrets, and a backup
+script that reported success while skipping failures. Everything found got
+fixed the same day, and the audit itself became a repeatable practice.
+
+## What it demonstrates
+
+Operations discipline applied at home: defense in depth, backup strategy
+that assumes failure, and the willingness to audit your own work like a
+hostile stranger would. Self-hosting is my proving ground for taking
+ownership of systems end to end.

@@ -1,0 +1,53 @@
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 1.75rem 1.25rem 0;
+  width: 100%;
+}
+
+.name {
+  font-family: var(--font-display), Georgia, serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  text-decoration: none;
+}
+
+.name:hover {
+  color: var(--accent);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  list-style: none;
+}
+
+.nav a {
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* On paper the header is just the byline. */
+@media print {
+  .header {
+    padding-top: 0;
+  }
+
+  .name {
+    font-size: 1.6rem;
+  }
+
+  .nav {
+    display: none;
+  }
+}

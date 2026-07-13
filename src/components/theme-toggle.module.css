@@ -1,0 +1,44 @@
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  color: var(--ink-muted);
+  cursor: pointer;
+}
+
+.toggle:hover {
+  color: var(--accent);
+  border-color: var(--rule-soft);
+}
+
+/* The sun shows in the light theme, the moon in the dark.
+   Driven by the html attribute (or the system preference before
+   anyone touches the toggle) so it needs no JS to render right. */
+.moon {
+  display: none;
+}
+
+:global([data-theme="dark"]) .sunCore,
+:global([data-theme="dark"]) .rays {
+  display: none;
+}
+
+:global([data-theme="dark"]) .moon {
+  display: block;
+}
+
+@media (prefers-color-scheme: dark) {
+  :global(:root:not([data-theme="light"])) .sunCore,
+  :global(:root:not([data-theme="light"])) .rays {
+    display: none;
+  }
+
+  :global(:root:not([data-theme="light"])) .moon {
+    display: block;
+  }
+}

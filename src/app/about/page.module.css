@@ -1,0 +1,11 @@
+.article {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
+  width: 100%;
+}
+
+.title {
+  font-size: clamp(1.9rem, 5vw, 2.4rem);
+  margin-bottom: 1.75rem;
+}
