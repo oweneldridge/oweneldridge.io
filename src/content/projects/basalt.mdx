@@ -10,24 +10,46 @@ tech:
 links:
   - label: Source on GitHub
     href: https://github.com/oweneldridge/basalt
+featured: true
 order: 1
 ---
 
-Basalt is my answer to a question I kept circling: what happens to a decade
-of notes when the app that holds them changes hands, changes terms, or just
-changes? It is a desktop knowledge base that reads and writes plain Markdown
-folders, fully compatible with Obsidian vaults, so the notes never belong to
-the tool.
+Basalt is a desktop knowledge base that reads and writes plain Markdown
+folders, fully compatible with Obsidian vaults, so a decade of notes never
+belongs to the tool that displays them. I built the whole stack: the Tauri
+2 shell, the React front end, and a CodeMirror 6 editing core where
+live-preview Markdown is implemented extension by extension rather than
+borrowed from a prebuilt editor.
 
-The app is built on Tauri 2 with a React front end and a CodeMirror 6
-editing core. Getting live-preview Markdown editing right, where the syntax
-melts away as you move through it, meant going deep on CodeMirror
-decorations and state fields rather than reaching for a prebuilt editor.
+## The problem
+
+What happens to your notes when the app that holds them changes hands,
+changes terms, or just changes? Obsidian's format is plain files, which is
+the right idea, but the application itself is closed source. I wanted the
+same daily-driver experience in a codebase that can be read, audited, and
+kept alive by anyone.
+
+## The hard part
+
+Live preview, where Markdown syntax melts away as the cursor moves through
+it, is the feature that makes or breaks a notes app, and there is no
+shortcut for it. Each construct gets its own CodeMirror extension built on
+decorations and state fields: headings, callouts with folding, embeds,
+footnotes, tables, math, frontmatter. The editor directory is a catalog of
+those small machines, each one responsible for hiding syntax without
+losing the cursor.
 
 Basalt is AGPL licensed and aims for parity with the core features people
-actually rely on, plus its own plugin API. It deliberately does not chase
-compatibility with Obsidian's plugin ecosystem; the point is a codebase that
-can be understood, audited, and kept alive by its community.
+rely on, plus its own plugin API. It deliberately does not chase
+compatibility with Obsidian's plugin ecosystem; the point is a foundation
+worth extending, not a clone.
+
+## Proof
+
+- [The live-preview core](https://github.com/oweneldridge/basalt/blob/5cdeb21127351c03071966fb47a2b255311dc708/src/editor/livePreview.ts),
+  where syntax hiding meets cursor state
+- [The editor extension catalog](https://github.com/oweneldridge/basalt/tree/5cdeb21127351c03071966fb47a2b255311dc708/src/editor),
+  one file per Markdown construct
 
 ## What it demonstrates
 

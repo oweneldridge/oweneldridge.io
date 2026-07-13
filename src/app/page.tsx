@@ -4,6 +4,8 @@ import styles from "./page.module.css";
 
 export default function Home() {
   const projects = listProjects();
+  const featured = projects.filter((p) => p.featured);
+  const archive = projects.filter((p) => !p.featured);
 
   return (
     <div className={styles.page}>
@@ -28,7 +30,7 @@ export default function Home() {
           Selected work
         </h2>
         <ol className={styles.index}>
-          {projects.map((project, i) => (
+          {featured.map((project, i) => (
             <li
               key={project.slug}
               className={`${styles.entry} rise`}
@@ -53,6 +55,35 @@ export default function Home() {
           ))}
         </ol>
       </section>
+
+      {archive.length > 0 && (
+        <section aria-labelledby="archive-heading" className={styles.archive}>
+          <h2
+            id="archive-heading"
+            className="overline rise"
+            style={
+              { "--rise-order": featured.length + 2 } as React.CSSProperties
+            }
+          >
+            Earlier and elsewhere
+          </h2>
+          <ul className={styles.archiveList}>
+            {archive.map((project) => (
+              <li key={project.slug} className={styles.archiveEntry}>
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className={styles.archiveLink}
+                >
+                  {project.title}
+                </Link>
+                <span className={styles.archiveSummary}>
+                  {project.summary}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </div>
   );
 }

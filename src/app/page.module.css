@@ -93,3 +93,34 @@
   letter-spacing: 0.02em;
   color: var(--ink-muted);
 }
+
+.archive {
+  padding-bottom: 4rem;
+}
+
+.archiveList {
+  list-style: none;
+  margin-top: 1rem;
+}
+
+.archiveEntry {
+  padding: 0.7rem 0;
+  border-top: 1px solid var(--rule-soft);
+}
+
+.archiveLink {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.05rem;
+  text-decoration: none;
+}
+
+.archiveLink:hover {
+  color: var(--accent);
+}
+
+.archiveSummary {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.92rem;
+  color: var(--ink-muted);
+}

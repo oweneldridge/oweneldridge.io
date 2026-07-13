@@ -14,6 +14,7 @@ export type Project = {
   year: string;
   tech: string[];
   links: ProjectLink[];
+  featured: boolean;
   order: number;
 };
 
@@ -43,6 +44,7 @@ export function listProjects(): Project[] {
         year: need(data, "year", name),
         tech: (data.tech ?? []) as string[],
         links: (data.links ?? []) as ProjectLink[],
+        featured: data.featured === true,
         order: (data.order ?? 99) as number,
       };
     })

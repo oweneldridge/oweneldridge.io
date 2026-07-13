@@ -28,3 +28,6 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Page weight budget
+        run: bash scripts/check-page-weight.sh

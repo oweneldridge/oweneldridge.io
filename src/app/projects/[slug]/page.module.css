@@ -38,5 +38,13 @@
 .metaRow dt {
   flex: 0 0 5.5rem;
   color: var(--ink-muted);
+  font-family: var(--font-display), Georgia, serif;
   font-style: italic;
+}
+
+/* The opening graf is the outcome, written to be read first;
+   set it a notch larger, like an editorial lede. */
+.article :global(.prose) > p:first-of-type {
+  font-size: 1.17rem;
+  line-height: 1.6;
 }

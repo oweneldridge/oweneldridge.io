@@ -1,64 +1,16 @@
-"use client";
-
-import { useSyncExternalStore } from "react";
 import styles from "./theme-toggle.module.css";
 
-type Theme = "light" | "dark";
-
-// Tiny store over "what theme is showing right now": the html attribute
-// when the visitor has picked one, the system preference otherwise.
-const listeners = new Set<() => void>();
-
-function subscribe(onChange: () => void) {
-  const media = window.matchMedia("(prefers-color-scheme: dark)");
-  media.addEventListener("change", onChange);
-  listeners.add(onChange);
-  return () => {
-    media.removeEventListener("change", onChange);
-    listeners.delete(onChange);
-  };
-}
-
-function getTheme(): Theme {
-  const set = document.documentElement.dataset.theme;
-  if (set === "light" || set === "dark") return set;
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
-}
-
-function getServerTheme(): Theme | null {
-  // The server can't know; the button renders with a neutral label
-  // until hydration catches up.
-  return null;
-}
-
+// Plain markup; the click behavior is a small inline script in the layout.
+// The site ships no framework JavaScript, so this can't be a client
+// component, and it doesn't need to be: the icon swap is CSS driven by
+// the html data-theme attribute and the system preference.
 export function ThemeToggle() {
-  const theme = useSyncExternalStore(subscribe, getTheme, getServerTheme);
-
-  function flip() {
-    const next = (theme ?? getTheme()) === "dark" ? "light" : "dark";
-    document.documentElement.dataset.theme = next;
-    try {
-      localStorage.setItem("theme", next);
-    } catch {
-      // private browsing, storage full, whatever: the page still flips
-    }
-    listeners.forEach((notify) => notify());
-  }
-
   return (
     <button
       type="button"
+      id="theme-toggle"
       className={styles.toggle}
-      onClick={flip}
-      aria-label={
-        theme === null
-          ? "Switch color theme"
-          : theme === "dark"
-            ? "Switch to the light theme"
-            : "Switch to the dark theme"
-      }
+      aria-label="Switch color theme"
     >
       <svg
         aria-hidden="true"

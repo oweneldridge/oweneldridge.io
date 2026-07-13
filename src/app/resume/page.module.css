@@ -21,6 +21,7 @@
 
 .headline {
   margin-top: 0.4rem;
+  font-family: var(--font-display), Georgia, serif;
   font-style: italic;
   color: var(--ink-muted);
 }
@@ -40,6 +41,7 @@
 }
 
 .skillGroup dt {
+  font-family: var(--font-display), Georgia, serif;
   font-style: italic;
   color: var(--ink-muted);
   font-size: 0.95rem;
@@ -73,6 +75,7 @@
 
 .roleTitle {
   margin-top: 0.2rem;
+  font-family: var(--font-display), Georgia, serif;
   font-style: italic;
 }
 
