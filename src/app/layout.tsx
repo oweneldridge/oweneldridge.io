@@ -8,6 +8,7 @@ import "./globals.css";
 // alongside) so nothing is fetched from Google at build time or ever.
 const display = localFont({
   variable: "--font-display",
+  adjustFontFallback: "Times New Roman",
   src: [
     {
       path: "../fonts/fraunces-latin-standard-normal.woff2",
@@ -24,6 +25,7 @@ const display = localFont({
 
 const text = localFont({
   variable: "--font-text",
+  adjustFontFallback: "Times New Roman",
   src: [
     {
       path: "../fonts/newsreader-latin-standard-normal.woff2",

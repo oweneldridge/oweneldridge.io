@@ -19,19 +19,28 @@ export type Project = {
 
 const projectsDir = path.join(process.cwd(), "src/content/projects");
 
+// Fails the build with the filename when a project's frontmatter is
+// missing something, instead of rendering "undefined" to visitors.
+function need(data: Record<string, unknown>, field: string, file: string) {
+  const value = data[field];
+  if (typeof value !== "string" && typeof value !== "number") {
+    throw new Error(`${file}: frontmatter is missing "${field}"`);
+  }
+  return String(value);
+}
+
 export function listProjects(): Project[] {
   return fs
-    .readdirSync(projectsDir)
-    .filter((file) => file.endsWith(".mdx"))
-    .map((file) => {
-      const slug = file.replace(/\.mdx$/, "");
-      const raw = fs.readFileSync(path.join(projectsDir, file), "utf8");
+    .readdirSync(projectsDir, { withFileTypes: true })
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".mdx"))
+    .map(({ name }) => {
+      const raw = fs.readFileSync(path.join(projectsDir, name), "utf8");
       const { data } = matter(raw);
       return {
-        slug,
-        title: data.title as string,
-        summary: data.summary as string,
-        year: String(data.year),
+        slug: name.replace(/\.mdx$/, ""),
+        title: need(data, "title", name),
+        summary: need(data, "summary", name),
+        year: need(data, "year", name),
         tech: (data.tech ?? []) as string[],
         links: (data.links ?? []) as ProjectLink[],
         order: (data.order ?? 99) as number,
