@@ -15,8 +15,7 @@ export default function ResumePage() {
           <h1 className={styles.title}>Resume</h1>
           <p className={styles.headline}>{resume.headline}</p>
           <p className={styles.printContact}>
-            {resume.email} · github.com/oweneldridge ·
-            linkedin.com/in/oweneldridge
+            {[resume.email, ...resume.links.map((l) => l.label)].join(" · ")}
           </p>
         </div>
         <a
@@ -61,8 +60,8 @@ export default function ResumePage() {
               <span className={styles.roleContext}> · {role.context}</span>
             </p>
             <ul className={styles.bullets}>
-              {role.bullets.map((bullet) => (
-                <li key={bullet.slice(0, 40)}>{bullet}</li>
+              {role.bullets.map((bullet, i) => (
+                <li key={i}>{bullet}</li>
               ))}
             </ul>
           </section>

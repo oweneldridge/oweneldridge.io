@@ -1,40 +1,27 @@
 /* Editorial ink: warm paper in the light, deep ink in the dark.
-   Tokens first, theme overrides second, base styles after. */
+   Every token is written once, with light-dark() picking the side.
+   color-scheme decides which side that is: the system preference by
+   default, the visitor's choice once they touch the toggle (data-theme
+   on <html>). */
 
 :root {
-  --paper: #f6f1e7;
-  --paper-raised: #ede6d6;
-  --ink: #221d14;
-  --ink-muted: #5c5344;
-  --accent: #8a2d1c;
-  --rule: rgba(34, 29, 20, 0.22);
-  --rule-soft: rgba(34, 29, 20, 0.12);
+  color-scheme: light dark;
+  --paper: light-dark(#f6f1e7, #171310);
+  --paper-raised: light-dark(#ede6d6, #221c15);
+  --ink: light-dark(#221d14, #eae2d3);
+  --ink-muted: light-dark(#5c5344, #b0a48e);
+  --accent: light-dark(#8a2d1c, #e08a5e);
+  --rule: light-dark(rgba(34, 29, 20, 0.22), rgba(234, 226, 211, 0.28));
+  --rule-soft: light-dark(rgba(34, 29, 20, 0.12), rgba(234, 226, 211, 0.14));
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+[data-theme="light"] {
   color-scheme: light;
 }
 
 [data-theme="dark"] {
-  --paper: #171310;
-  --paper-raised: #221c15;
-  --ink: #eae2d3;
-  --ink-muted: #b0a48e;
-  --accent: #e08a5e;
-  --rule: rgba(234, 226, 211, 0.28);
-  --rule-soft: rgba(234, 226, 211, 0.14);
   color-scheme: dark;
-}
-
-/* Follow the system until the visitor picks a side with the toggle. */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --paper: #171310;
-    --paper-raised: #221c15;
-    --ink: #eae2d3;
-    --ink-muted: #b0a48e;
-    --accent: #e08a5e;
-    --rule: rgba(234, 226, 211, 0.28);
-    --rule-soft: rgba(234, 226, 211, 0.14);
-    color-scheme: dark;
-  }
 }
 
 * {
@@ -96,24 +83,13 @@ a:hover {
 code,
 kbd,
 samp {
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-family: var(--font-mono);
   font-size: 0.875em;
 }
 
 img {
   max-width: 100%;
   height: auto;
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
 }
 
 .skip-link {
@@ -142,6 +118,10 @@ img {
 }
 
 /* Long-form copy inside MDX pages. */
+.prose {
+  overflow-wrap: break-word;
+}
+
 .prose > * + * {
   margin-top: 1.1em;
 }
@@ -218,9 +198,13 @@ img {
 }
 
 /* Print is always ink on white, whatever theme is on screen. */
+@page {
+  margin: 0.6in 0.7in;
+}
+
 @media print {
-  :root,
-  [data-theme="dark"] {
+  :root {
+    color-scheme: light;
     --paper: #fff;
     --paper-raised: #f2f2f2;
     --ink: #000;

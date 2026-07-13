@@ -88,7 +88,7 @@
 
 .entryTech {
   margin-top: 0.55rem;
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-family: var(--font-mono);
   font-size: 0.78rem;
   letter-spacing: 0.02em;
   color: var(--ink-muted);
