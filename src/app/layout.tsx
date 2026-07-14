@@ -45,6 +45,14 @@ export const metadata: Metadata = {
   },
   description:
     "Full-stack engineer. Healthcare infrastructure by day, a rack of self-hosted software the rest of the time.",
+  openGraph: {
+    siteName: "Owen Eldridge",
+    type: "website",
+    images: [{ url: "/og.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 // Runs before first paint so a saved theme choice never flashes.

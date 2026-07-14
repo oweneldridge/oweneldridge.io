@@ -159,6 +159,28 @@ img {
   margin: 2.5em 0;
 }
 
+.prose figure {
+  margin: 2em 0;
+  padding: 1.25em 0;
+  border-top: 1px solid var(--rule-soft);
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+.prose figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+}
+
+.prose figcaption {
+  margin-top: 0.8em;
+  font-size: 0.88rem;
+  font-family: var(--font-display), Georgia, serif;
+  font-style: italic;
+  color: var(--ink-muted);
+}
+
 .prose pre {
   background: var(--paper-raised);
   border: 1px solid var(--rule-soft);
