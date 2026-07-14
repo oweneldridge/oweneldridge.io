@@ -1,0 +1,76 @@
+<!doctype html>
+<!-- Source for public/og.png, the card image behind link previews.
+     Rendered at 1200x630 by scripts/make-og-image.sh using the same
+     vendored fonts as the site. Edit this, rerun the script, commit both. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face {
+    font-family: Fraunces;
+    src: url("../src/fonts/fraunces-latin-standard-normal.woff2") format("woff2");
+    font-weight: 100 900;
+  }
+  @font-face {
+    font-family: Fraunces;
+    src: url("../src/fonts/fraunces-latin-standard-italic.woff2") format("woff2");
+    font-weight: 100 900;
+    font-style: italic;
+  }
+  @font-face {
+    font-family: Newsreader;
+    src: url("../src/fonts/newsreader-latin-standard-normal.woff2") format("woff2");
+    font-weight: 100 900;
+  }
+  * { margin: 0; box-sizing: border-box; }
+  body {
+    width: 1200px;
+    height: 630px;
+    background: #f6f1e7;
+    color: #221d14;
+    font-family: Newsreader, Georgia, serif;
+    padding: 72px 84px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-top: 10px solid #8a2d1c;
+  }
+  .name {
+    font-family: Fraunces, Georgia, serif;
+    font-style: italic;
+    font-size: 44px;
+    font-weight: 500;
+  }
+  .statement {
+    font-family: Fraunces, Georgia, serif;
+    font-weight: 450;
+    font-size: 74px;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    max-width: 980px;
+  }
+  .statement .dot { color: #8a2d1c; }
+  .foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-top: 1px solid rgba(34, 29, 20, 0.22);
+    padding-top: 26px;
+    font-size: 30px;
+    color: #5c5344;
+  }
+  .foot .url { font-family: Fraunces, Georgia, serif; }
+</style>
+</head>
+<body>
+  <div class="name">Owen Eldridge</div>
+  <div class="statement">
+    Full-stack engineer. I build software meant to outlast the hype
+    cycle, and I run my own<span class="dot">.</span>
+  </div>
+  <div class="foot">
+    <span class="url">oweneldridge.io</span>
+    <span>projects · about · resume</span>
+  </div>
+</body>
+</html>

@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "check": "npm run typecheck && npm run lint && npm run build",
     "deploy": "bash scripts/deploy-pages.sh",
-    "postbuild": "node scripts/strip-runtime.mjs"
+    "postbuild": "node scripts/strip-runtime.mjs",
+    "check-links": "bash scripts/check-links.sh"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
