@@ -11,32 +11,48 @@ tech:
 links:
   - label: Converter on GitHub
     href: https://github.com/oweneldridge/audiobook-creator-tts
+featured: true
 order: 3
 ---
 
-Most read-aloud features today are a thin wrapper around a big-tech cloud
-voice. I wanted audiobooks from my ebook library without any of my reading
-leaving the house, so I built the pipeline myself.
+Queue an ebook at night, wake up to an audiobook: a proper .m4b with
+chapters from the book's table of contents, embedded cover art, and a
+voice matched to the material, synthesized entirely on my own hardware.
+None of my reading touches a cloud service.
 
-The synthesis end is Kokoro, a neural TTS model served from my home server
-with an OpenAI-compatible API, running entirely on CPU. The converter takes
-an EPUB or PDF and produces a proper .m4b: chapters derived from the book's
-table of contents, embedded cover art, and a voice picked to suit the
-material.
+## The problem
+
+Most read-aloud features are a thin wrapper around a big-tech cloud voice,
+and the ones that aren't tend to sound like a fax machine. I wanted
+listenable neural narration for my own library without shipping the
+library to anyone.
+
+## The moment it broke
+
+The first version of the converter didn't synthesize anything itself; it
+drove a free TTS website through a scripted browser session. It worked
+right up until it didn't: CAPTCHAs, session expiries, and layout changes
+kept killing overnight runs halfway through a book. The fix was to stop
+borrowing someone else's infrastructure. I stood up Kokoro, a neural TTS
+model with an OpenAI-compatible API, on my home server running entirely on
+CPU, and rewrote the converter's backend against it. No CAPTCHAs, no
+cloud, and the whole pipeline became boringly reliable.
 
 Around the converter sits the automation that makes it a pipeline rather
-than a script: a queue directory watched by a systemd timer, a render worker
-on the server, and an import step that files finished books into
-Audiobookshelf, where they sync to my devices. Queue a book at night, wake
-up to an audiobook.
+than a script: a queue directory watched by a systemd timer, a render
+worker on the server, and an import step that files finished books into
+Audiobookshelf, where they sync to my devices.
 
-The same Kokoro server also powers read-aloud in my desktop ebook reader
-through a small custom voice plugin, replacing a feature that would
-otherwise have gone through Microsoft's cloud.
+## Proof
+
+- [The converter entrypoint](https://github.com/oweneldridge/audiobook-creator-tts/blob/0448a4845c2109741523e8e6400ef73dcd501aa7/convert_document.py),
+  EPUB or PDF in, chaptered .m4b out
+- [The Kokoro backend notes](https://github.com/oweneldridge/audiobook-creator-tts/blob/0448a4845c2109741523e8e6400ef73dcd501aa7/KOKORO_BACKEND.md),
+  written while replacing the scraper
 
 ## What it demonstrates
 
 Practical ML serving on modest hardware, audio and metadata wrangling with
-FFmpeg, and unglamorous-but-honest systems glue: queues, timers, idempotent
-imports. Built around a conviction that convenience should not cost you
-your privacy.
+FFmpeg, and unglamorous-but-honest systems glue: queues, timers,
+idempotent imports. Built around a conviction that convenience should not
+cost you your privacy.

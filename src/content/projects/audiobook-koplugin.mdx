@@ -8,29 +8,41 @@ tech:
   - BlueZ
   - Embedded Linux
 links: []
+featured: true
 order: 2
 ---
 
-My Kobo Sage could technically do Bluetooth audio, but nothing on it could
-play an audiobook. This plugin fixes that: chaptered .m4b playback inside
-KOReader, so one small e-ink device covers both reading and listening.
+My Kobo Sage plays chaptered audiobooks over Bluetooth headphones now, from
+the same KOReader interface I read in, with playback position remembered
+per book. One small e-ink device covers both reading and listening, which
+is something the hardware could always do and the software never allowed.
 
-The hard part was not the player, it was the radio. Kobo's stock software
-never initializes the Bluetooth chip for anything but its own narrow use, so
-the plugin brings the hardware up from a cold boot by itself: firing the
-rfkill GPIO, attaching the HCI transport with a bundled hciattach, and
-writing a stable Broadcom device address so pairings survive reboots. The
-address is captured once and kept in a small state file.
+## The problem
 
-Audio comes from mpv, cross-compiled for the Kobo's ARM chip in KOReader's
-own toolchain container so the build is reproducible rather than a
-one-machine miracle. The result cold-starts, reconnects to headphones,
-remembers position per book, and handles chapter navigation from e-ink
-friendly controls.
+Kobo's stock firmware initializes the Bluetooth chip only for its own
+narrow purposes, and nothing on the device could open an audiobook at all.
+Getting there meant a player, an audio stack, and a radio bring-up, all
+running inside an e-reader's spartan Linux.
+
+## The moment it broke
+
+The first working version lost its mind on every reboot: the Bluetooth
+chip comes up with a different device address each cold boot, so every
+pairing with my headphones evaporated overnight. The fix runs at the
+lowest level the plugin touches. It fires the rfkill GPIO, attaches the
+HCI transport with a bundled hciattach, then writes a stable address back
+into the chip with Broadcom's vendor command. The real address gets
+captured once and kept in a small state file, and pairings have survived
+every reboot since.
+
+The other fragile piece was audio. mpv doesn't exist for Kobo, and a
+hand-built binary that only compiles on one laptop is a time bomb, so the
+build runs inside KOReader's own cross-compilation container. Anyone with
+the container can reproduce the exact binary.
 
 ## What it demonstrates
 
 Embedded Linux work several layers below where app development usually
-stops: GPIO, HCI transports, vendor firmware quirks, and cross-compilation.
-And the stubbornness to make owned hardware do what it was always capable
-of.
+stops: GPIO, HCI transports, vendor firmware quirks, and reproducible
+cross-compilation. And the stubbornness to make owned hardware do what it
+was always capable of.
