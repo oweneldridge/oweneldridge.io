@@ -44,10 +44,29 @@ rely on, plus its own plugin API. It deliberately does not chase
 compatibility with Obsidian's plugin ecosystem; the point is a foundation
 worth extending, not a clone.
 
+## The moment it broke
+
+Saving a note made its own line unclickable. Type a line, save, and the
+caret would skip right over it; click one word and the cursor landed at
+the end of a different one. My first theory was wrong in a useful way: the
+file watcher was remounting the entire editor on every disk change, which
+was a real bug worth fixing on its own, so external changes now reconcile
+into the live editor as a single transaction instead of destroying it. But
+the caret stayed misaligned. The actual culprit was one line of CSS. I had
+centered the editor's content element with a max-width and an auto margin,
+which shifts the text away from where CodeMirror's click-to-position
+mapping expects it to be, so every click was off by exactly that margin.
+The width constraint moved to the parent container, and clicks landed
+where they were aimed. Three rounds of adversarial code review had missed
+it; clicking around the running app found it in minutes, which is why I
+trust exercised software over reviewed software.
+
 ## Proof
 
 - [The live-preview core](https://github.com/oweneldridge/basalt/blob/5cdeb21127351c03071966fb47a2b255311dc708/src/editor/livePreview.ts),
   where syntax hiding meets cursor state
+- [The editor theme](https://github.com/oweneldridge/basalt/blob/5cdeb21127351c03071966fb47a2b255311dc708/src/editor/theme.ts),
+  where the caret bug lived
 - [The editor extension catalog](https://github.com/oweneldridge/basalt/tree/5cdeb21127351c03071966fb47a2b255311dc708/src/editor),
   one file per Markdown construct
 
