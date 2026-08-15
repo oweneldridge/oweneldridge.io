@@ -9,13 +9,16 @@ export const metadata: Metadata = {
 
 export default function ResumePage() {
   return (
-    <article className={styles.article}>
+    <article className={styles.article} data-print="resume">
       <header className={styles.top}>
         <div>
+          <p className={styles.printName}>{resume.name}</p>
           <h1 className={styles.title}>Resume</h1>
           <p className={styles.headline}>{resume.headline}</p>
           <p className={styles.printContact}>
-            {[resume.email, ...resume.links.map((l) => l.label)].join(" · ")}
+            {[resume.email, resume.site, ...resume.links.map((l) => l.label)].join(
+              " · ",
+            )}
           </p>
         </div>
         <a

@@ -222,7 +222,7 @@ img {
 
 /* Print is always ink on white, whatever theme is on screen. */
 @page {
-  margin: 0.6in 0.7in;
+  margin: 0.55in 0.6in;
 }
 
 @media print {
@@ -240,5 +240,14 @@ img {
   body {
     background: #fff;
     color: #000;
+  }
+
+  /* The resume prints as a standalone document: its own header carries
+     the name and contacts, so the site byline, nav, and footer would
+     only be duplication taking up paper. Other pages keep theirs. */
+  body:has([data-print="resume"]) > header,
+  body:has([data-print="resume"]) > footer,
+  body:has([data-print="resume"]) > .skip-link {
+    display: none;
   }
 }

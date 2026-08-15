@@ -19,6 +19,9 @@ export const resume = {
   name: "Owen Eldridge",
   headline: "Full Stack Software Engineer",
   email: "owen.eldridge@pm.me",
+  // Printed on the PDF only: it travels away from the site, so it should
+  // say where home is. On screen you are already here.
+  site: "oweneldridge.io",
   links: [
     { label: "github.com/oweneldridge", href: "https://github.com/oweneldridge" },
     {
