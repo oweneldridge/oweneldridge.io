@@ -96,24 +96,148 @@
   margin-top: 0.75rem;
 }
 
-/* The contact line only exists on paper; on screen the footer has it. */
+/* The name and contact line only exist on paper. On screen the site
+   header carries the name and the footer carries the contacts. */
+.printName,
 .printContact {
   display: none;
 }
 
+/* On paper this stops being a web page and becomes a resume: the screen
+   layout is tuned for reading one column at leisure, a resume is tuned
+   for a recruiter skimming two pages in thirty seconds. Everything below
+   is density work, sized in points because paper is. */
 @media print {
   .article {
     padding: 0;
     max-width: none;
+    font-size: 9.6pt;
+    line-height: 1.33;
   }
 
   .download {
     display: none;
   }
 
+  /* Header: the name leads, not the word "Resume". */
+  .top {
+    display: block;
+    padding-bottom: 0.5rem;
+    border-bottom: 0.75pt solid rgba(0, 0, 0, 0.45);
+  }
+
+  .title {
+    display: none;
+  }
+
+  .printName {
+    display: block;
+    font-family: var(--font-display), Georgia, serif;
+    font-size: 20pt;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  .headline {
+    margin-top: 0.1rem;
+    font-size: 10pt;
+  }
+
   .printContact {
     display: block;
-    margin-top: 0.5rem;
-    font-size: 0.95rem;
+    margin-top: 0.22rem;
+    font-size: 8.8pt;
+    color: #000;
+  }
+
+  /* Sections: small ruled labels, tight above and below. */
+  .section {
+    margin-top: 0.85rem;
+  }
+
+  .section > :global(.overline) {
+    font-size: 8pt;
+    letter-spacing: 0.13em;
+    color: #000;
+    padding-bottom: 0.12rem;
+    border-bottom: 0.5pt solid rgba(0, 0, 0, 0.28);
+    break-after: avoid;
+  }
+
+  /* Skills: label and list share a line instead of stacking. */
+  .skills {
+    margin-top: 0.35rem;
+    display: block;
+  }
+
+  .skillGroup {
+    margin-top: 0.18rem;
+    text-indent: -1em;
+    padding-left: 1em;
+  }
+
+  .skillGroup dt,
+  .skillGroup dd {
+    display: inline;
+    margin: 0;
+    font-size: 9.4pt;
+    color: #000;
+  }
+
+  .skillGroup dt::after {
+    content: ": ";
+  }
+
+  /* Roles: company and dates on one line, then a tight bullet block. */
+  .role {
+    margin-top: 0.62rem;
+  }
+
+  .roleHeader {
+    flex-wrap: nowrap;
+    break-after: avoid;
+  }
+
+  .roleCompany {
+    font-size: 11.2pt;
+  }
+
+  .roleDates {
+    font-size: 8.8pt;
+    color: #000;
+    white-space: nowrap;
+  }
+
+  .roleTitle {
+    margin-top: 0.02rem;
+    font-size: 9.5pt;
+    break-after: avoid;
+  }
+
+  .roleContext,
+  .headline {
+    color: #222;
+  }
+
+  .bullets {
+    margin-top: 0.22rem;
+    padding-left: 0.95em;
+  }
+
+  .bullets li {
+    padding-left: 0.1em;
+    break-inside: avoid;
+    orphans: 2;
+    widows: 2;
+  }
+
+  .bullets li + li {
+    margin-top: 0.16rem;
+  }
+
+  .plain {
+    margin-top: 0.3rem;
+    font-size: 9.4pt;
   }
 }
