@@ -50,10 +50,12 @@ export const resume = {
       context: "Healthcare technology, pharmacy benefits management",
       dates: "2025 to present",
       bullets: [
+        "Engineering lead on a historical claims import platform: designed the data model so adjudication, accumulators, and reporting could consume imported claims with no code changes from those teams, and delivered it code-complete across three repositories ahead of the deadline",
+        "Owned cross-team data-integrity validation for a legacy-to-modern claims platform migration: built a CLI validation suite with dozens of automated checks and a thorough unit test suite, wrote the source-to-target mapping and validation guide the team adopted, and independently confirmed the full dry-run at a 100% match across more than a million rows before legacy decommission",
+        "Found and fixed a migration defect that had attached claims to the wrong members, correcting hundreds of thousands of claims and heading off downstream eligibility, accumulator, and reporting errors",
         "Led cross-system data quality initiatives across the claims pipeline, finding and fixing systemic issues that affected hundreds of thousands of records, with production corrections delivered through formal change control",
+        "Root-caused a high-exposure billing discrepancy and showed the real member impact was a small fraction of the headline figure, then rewrote the query plan behind it to take a multi-million-row member resolution from twenty minutes to seconds",
         "Investigated and resolved escalated production reporting incidents through root cause analysis, and wrote the correction runbooks so the fixes outlived the incidents",
-        "Built a CLI validation tool with dozens of automated checks and a thorough unit test suite, providing quantitative evidence of data integrity during a legacy-to-modern claims platform migration",
-        "Leading the Historical Claims Import initiative as engineering lead, coordinating delivery across product, engineering, and data teams",
         "Built Python automation for production claims analysis that turned hours of manual batch work into minutes, adopted as the operations team's standard workflow",
         "Designed GraphQL APIs bringing cost calculation transparency to pharmacy claims, with Relay-compliant patterns, graceful degradation for older data, and shared fragments that cut frontend duplication",
         "Performed 100+ code reviews per quarter across 8 repositories, catching security vulnerabilities, data integrity bugs, and race conditions before they shipped",
@@ -102,5 +104,5 @@ export const resume = {
   education:
     "Florida Atlantic University, Computer Science. Johnson & Wales University, BS.",
   interests:
-    "German wine, classical guitar, adventure cycling, woodworking, ice carving, travel, and cooking most of the world's cuisines at home.",
+    "Homelab and self-hosting, open-source tinkering, classical guitar, adventure cycling, travel, and cooking most of the world's cuisines at home.",
 };
