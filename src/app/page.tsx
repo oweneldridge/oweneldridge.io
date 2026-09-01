@@ -11,13 +11,20 @@ export default function Home() {
     <div className={styles.page}>
       <section className={`${styles.hero} rise`}>
         <h1 className={styles.heroTitle}>
-          Full-stack engineer. I build software meant to outlast the hype
-          cycle, and I run my own.
+          Full-stack engineer. I work on money in regulated industries:
+          payments infrastructure, now pharmacy claims.
         </h1>
         <p className={styles.heroSub}>
-          Days go to healthcare claims infrastructure in Go, GraphQL, and
-          React. Nights go to a homelab, an e-reader that plays audiobooks
-          because I taught it to, and tools that keep my data mine.
+          Most of what I do is integrity work. Establishing what the data
+          actually supports, finding where it stopped being true, and being
+          clear about what is still unmeasured. I came up through the
+          operations side of consumer finance before I wrote software for a
+          living, which is why I knew what the numbers meant before I could
+          build the systems that carry them.
+        </p>
+        <p className={styles.heroMeta}>
+          Go, TypeScript, and a lot of SQL by day. Nights go to a homelab and
+          tools that keep my data mine.
         </p>
       </section>
 

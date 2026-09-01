@@ -22,6 +22,15 @@
   color: var(--ink-muted);
 }
 
+/* The line that keeps the site sounding like a person, set quieter than
+   the positioning statement above it. */
+.heroMeta {
+  margin-top: 1rem;
+  max-width: 36rem;
+  font-size: 0.98rem;
+  color: var(--ink-muted);
+}
+
 .work {
   padding-bottom: 4rem;
 }
