@@ -1,0 +1,58 @@
+---
+title: The compliance edge of a payments platform
+summary: "Technical lead on the parts of a payment facilitator where money movement runs into regulation: onboarding, screening, and card-present processing."
+year: "2023 to 2025"
+tech:
+  - Python
+  - AWS Lambda
+  - DynamoDB
+  - Next.js
+  - TypeScript
+links: []
+featured: true
+order: 2
+---
+
+I was technical lead for payments at Kite Technologies, formerly Indigo Tech
+Group, a platform that is now a registered payment facilitator. My work sat
+on the side of it where moving money stops being an engineering problem and
+starts being a regulatory one.
+
+## What that actually means
+
+Becoming a payment facilitator means taking on the obligations a bank would
+otherwise hold. Before a merchant can process a payment, somebody has to
+establish that the business is real, that the people behind it are who they
+claim, and that none of them appear on a sanctions list. That is beneficial
+ownership verification and screening, and it is a data problem wearing a
+compliance costume: identity evidence arrives incomplete, entities change
+shape, and the answer has to hold up months later when somebody asks how you
+concluded it.
+
+The rest of the surface was the same character. Card-present processing from
+terminal communication through to stored transaction, integrating a
+processor's cloud API. Webhook subscription management on Lambda and
+DynamoDB so external systems learned about payment events in something close
+to real time. A payment component embedded in the core application for card
+and bank account entry. PCI compliance as a standing constraint on every one
+of those decisions rather than an audit at the end.
+
+## The judgment that carried over
+
+Payments taught me the habit I now use on claims: the interesting failures
+are not crashes. They are values that are wrong while looking completely
+plausible, in systems where nobody notices until money or a regulator does.
+A funds transfer that reconciles to the wrong fee, an entity that passes a
+check it should have failed, a transaction stored under a shape that reads
+fine until someone asks a question a year later.
+
+That is why I write tests around monetary edges, why I would rather build a
+verification step than trust a report, and why I treat "the number looks
+reasonable" as the beginning of an investigation rather than the end of one.
+
+## What it demonstrates
+
+Regulated financial systems from the inside: compliance-bearing workflows,
+processor integration, event delivery, and PCI constraints, plus the
+specific paranoia that regulated money teaches you and that transfers
+directly to pharmacy claims.

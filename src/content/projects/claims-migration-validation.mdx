@@ -1,0 +1,67 @@
+---
+title: Proving a claims migration was correct
+summary: Owning the question of whether migrated pharmacy claims were still the same claims, and building the instrument that could answer it.
+year: "2026"
+tech:
+  - Go
+  - PostgreSQL
+  - SQL
+  - CLI tooling
+links: []
+featured: true
+order: 1
+---
+
+A pharmacy benefits platform moved its claims off a legacy system. I owned
+the question nobody else was positioned to answer: whether the data that
+landed on the other side was actually the same data. By the time the legacy
+system was decommissioned, that question had an evidenced answer rather than
+an assurance.
+
+## The problem
+
+Migrations get judged on whether they finish. Correctness is assumed, spot
+checked, and then discovered later by whoever is holding the wrong number.
+Pharmacy claims are financial records in a regulated industry, so "looks
+right" is not a standard. What was missing was an instrument: something that
+could be run repeatedly, by anyone, and produce the same verdict.
+
+## What I built
+
+A command-line validation suite with dozens of automated checks covering
+claim integrity, reversal linkage, and consistency across tables that are
+supposed to agree and quietly stop agreeing. It shipped with a real unit
+test suite, because a validation tool that is itself unverified just moves
+the trust problem somewhere less visible.
+
+Alongside it I wrote the source-to-target field mapping, which became the
+document the wider team ran against during go-live. That turned out to
+matter more than the tool. A shared reference means everyone is arguing
+about the same definition of correct.
+
+The hardest part was two financial fields whose derivation existed nowhere
+in writing. I recovered them by reading the code paths that produced them
+and testing candidate formulas against production data until one reproduced
+every value exactly, then held the result to that standard rather than to a
+close-enough tolerance.
+
+## The moment it broke
+
+I gave the group a sizing figure. Then, checking my own work, I found the
+query behind it had died partway through the date range and I had reported a
+number built on a partial scan. I corrected it before anyone acted on it,
+and said in the same breath that the replacement still counted a known class
+of false positives and needed re-measuring before anything was sized off it.
+
+That is the part I would want a hiring manager to read. The verification
+tooling is ordinary engineering. Being the person who audits their own
+output before it reaches a decision-maker, and who separates the confirmed
+number from the estimated one out loud, is the actual job when the cost of
+being wrong is regulatory.
+
+## What it demonstrates
+
+Verification as a discipline rather than a phase: building the instrument,
+publishing the definition everyone can check against, recovering
+undocumented behavior empirically instead of guessing, and saying plainly
+what remains unmeasured.

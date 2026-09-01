@@ -72,7 +72,7 @@ export default function Home() {
               { "--rise-order": featured.length + 2 } as React.CSSProperties
             }
           >
-            Earlier and elsewhere
+            Also built
           </h2>
           <ul className={styles.archiveList}>
             {archive.map((project) => (
