@@ -1,0 +1,69 @@
+---
+title: Podcasts in cliamp
+summary: Five merged pull requests to a popular terminal music player written in Go, making podcast episodes seekable, resumable, and easy to find.
+year: "2026"
+tech:
+  - Go
+  - Bubble Tea
+  - FFmpeg
+links:
+  - label: My merged pull requests
+    href: https://github.com/bjarneo/cliamp/pulls?q=is%3Apr+author%3Aoweneldridge+is%3Amerged
+  - label: cliamp on GitHub
+    href: https://github.com/bjarneo/cliamp
+featured: false
+order: 5
+---
+
+cliamp is a terminal music player written in Go, with more than four
+thousand stars on GitHub. It isn't my project. Over a few days in
+September I sent it five pull requests, all merged, that make podcast
+episodes seekable, remember where you stopped in each one, and let you
+browse the shows you subscribe to.
+
+## Episodes that played like live radio
+
+Podcast episodes played as if they were live streams. The header read
+LIVE, seeking did nothing, and a seek sent over the player's IPC interface
+reported success without moving. The cause was the choice of pipeline:
+everything fetched over HTTP went down the streaming path. A response with
+a finite length and none of the headers internet radio sends is a file,
+not a broadcast, so it now goes to the buffered FFmpeg pipeline, which can
+seek. The episode's length comes from the feed until the download
+finishes, then from ffprobe, because feeds understate it. Without FFmpeg
+installed, nothing changes.
+
+<Note>
+
+The fix: [#474](https://github.com/bjarneo/cliamp/pull/474).
+
+</Note>
+
+## Remembering where you were
+
+The podcast provider kept no state, so every episode started from the top.
+It now stores listening position and played state per episode in a local
+file, and the track list marks played and part-heard episodes. Most of the
+work was in the edge cases: an episode that loses its metadata mid-play, a
+CDN that rewrites episode URLs, same-titled episodes with no GUID (told
+apart by publication date), and a progress file written by a newer version
+of cliamp. That last one used to be read as far as possible and rewritten
+in the older format, quietly dropping whatever the newer version had
+stored. Now it's left untouched and saving is skipped for the session.
+
+<Note>
+
+Position and played state: [#475](https://github.com/bjarneo/cliamp/pull/475). Browsing subscribed shows: [#476](https://github.com/bjarneo/cliamp/pull/476).
+
+</Note>
+
+The other two are smaller. Saved playlists can be appended to the one
+that's playing, and the queue gets a view of its own. The visualizer
+remembers its mode between launches and can hide the episode title, since
+the full-screen view is the one most likely to be on a shared screen.
+
+<Note>
+
+Playlists and the queue: [#477](https://github.com/bjarneo/cliamp/pull/477). The visualizer: [#479](https://github.com/bjarneo/cliamp/pull/479).
+
+</Note>
