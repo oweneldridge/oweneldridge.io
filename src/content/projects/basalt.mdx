@@ -1,0 +1,100 @@
+---
+title: Basalt
+summary: An open-source, local-first Markdown knowledge base that stays compatible with Obsidian vaults.
+year: "2026"
+tech:
+  - Tauri 2
+  - React
+  - TypeScript
+  - CodeMirror 6
+links:
+  - label: Source on GitHub
+    href: https://github.com/oweneldridge/basalt
+featured: true
+order: 4
+---
+
+Basalt is a desktop knowledge base that reads and writes plain Markdown
+folders, fully compatible with Obsidian vaults, so a decade of notes never
+belongs to the tool that displays them. I built the whole stack, across
+the Rust and webview sides of a Tauri 2 app: the shell, the React front
+end, and a CodeMirror 6 editing core where
+live-preview Markdown is implemented extension by extension instead of
+borrowed from a prebuilt editor.
+
+## Why not just use Obsidian
+
+Obsidian stores notes as plain files, which is the right idea, but the
+application itself is closed source, and whoever owns it can change it or
+its terms. I wanted the same daily-driver experience in a codebase anyone
+can read, audit, and keep alive.
+
+## Live preview
+
+Live preview hides Markdown syntax until the cursor reaches it. It's the
+feature people judge a notes app by, and there is no shortcut for it. Each
+construct gets its own CodeMirror extension built on decorations and state
+fields: headings, callouts with folding, embeds, footnotes, tables, math,
+frontmatter. The editor directory is a catalog of those small machines,
+each one responsible for hiding syntax without losing the cursor.
+
+<Note>
+
+Syntax hiding meets cursor state in [`livePreview.ts`](https://github.com/oweneldridge/basalt/blob/5cdeb21127351c03071966fb47a2b255311dc708/src/editor/livePreview.ts).
+
+One file per construct in [`src/editor`](https://github.com/oweneldridge/basalt/tree/5cdeb21127351c03071966fb47a2b255311dc708/src/editor).
+
+</Note>
+
+<LivePreviewDemo />
+
+<Note>
+
+A stand-in for the editor, built with HTML and CSS. Click a line, or tab in
+and use the arrow keys, and its Markdown comes back the way it does under
+Basalt's caret.
+
+</Note>
+
+<figure>
+  <img
+    src="/images/basalt-live-preview.png"
+    alt="Basalt's editor rendering a note: a frontmatter property panel with title and tag chips, a large heading, body text with wikilinks, a folded callout titled Working definition, and a bulleted list with bold and italic text"
+    width="920"
+    height="620"
+    loading="lazy"
+  />
+  <figcaption>
+    The live-preview editor in its browser test harness: frontmatter as a
+    property panel, a folded callout, wikilinks, and no visible Markdown
+    until the caret comes back for it.
+  </figcaption>
+</figure>
+
+Basalt is AGPL licensed and aims for parity with the core features people
+rely on, plus its own plugin API. It deliberately doesn't chase
+compatibility with Obsidian's plugin ecosystem. The goal is a foundation
+people can extend.
+
+## The caret bug
+
+Saving a note made its own line unclickable. Type a line, save, and the
+caret would skip right over it; click one word and the cursor landed at
+the end of a different one. My first theory was wrong in a useful way: the
+file watcher was remounting the entire editor on every disk change, which
+was a real bug worth fixing on its own, so external changes now reconcile
+into the live editor as a single transaction instead of destroying it. But
+the caret stayed misaligned. The actual cause was one line of CSS. I had
+centered the editor's content element with a max-width and an auto margin,
+which shifts the text away from where CodeMirror's click-to-position
+mapping expects it, so every click was off by exactly that margin. The
+width constraint moved to the parent container, and clicks landed where
+they were aimed. Three rounds of code review by Claude Code agents had missed it;
+clicking around the running app found it in minutes, which is why I trust
+exercised software over reviewed software.
+
+<Note>
+
+The bug lived in [`theme.ts`](https://github.com/oweneldridge/basalt/blob/5cdeb21127351c03071966fb47a2b255311dc708/src/editor/theme.ts).
+
+</Note>

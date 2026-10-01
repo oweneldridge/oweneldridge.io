@@ -1,0 +1,52 @@
+---
+title: Local audiobook pipeline
+summary: Ebooks in, narrated audiobooks out. Neural TTS running on my own hardware, no cloud voices involved.
+year: "2026"
+tech:
+  - Python
+  - Kokoro TTS
+  - FFmpeg
+  - systemd
+  - Docker
+links:
+  - label: Converter on GitHub
+    href: https://github.com/oweneldridge/audiobook-creator-tts
+featured: false
+order: 6
+---
+
+Queue an ebook at night, wake up to an audiobook: a proper .m4b with
+chapters from the book's table of contents, embedded cover art, and a
+voice matched to the material, synthesized entirely on my own hardware.
+None of my reading touches a cloud service.
+
+## Why not a cloud voice
+
+Most read-aloud features are a thin wrapper around a big-tech cloud voice,
+and the ones that aren't tend to sound like a fax machine. I wanted
+listenable neural narration for my own library without shipping the
+library to anyone.
+
+## Replacing the scraper
+
+The first version of the converter didn't synthesize anything itself; it
+drove a free TTS website through a scripted browser session. CAPTCHAs,
+session expiries, and layout changes kept killing overnight runs halfway
+through a book. The fix was to stop borrowing someone else's
+infrastructure. I stood up Kokoro, a neural TTS model with an
+OpenAI-compatible API, on my home server running entirely on CPU, and
+rewrote the converter's backend against it. No CAPTCHAs, no cloud, and the
+whole pipeline became boringly reliable.
+
+<Note>
+
+EPUB or PDF in, chaptered .m4b out: [`convert_document.py`](https://github.com/oweneldridge/audiobook-creator-tts/blob/0448a4845c2109741523e8e6400ef73dcd501aa7/convert_document.py).
+
+Notes written during the switch: [`KOKORO_BACKEND.md`](https://github.com/oweneldridge/audiobook-creator-tts/blob/0448a4845c2109741523e8e6400ef73dcd501aa7/KOKORO_BACKEND.md).
+
+</Note>
+
+Around the converter sits the automation that makes it a pipeline and not
+just a script: a queue directory watched by a systemd timer, a render
+worker on the server, and an idempotent import step that files finished
+books into Audiobookshelf, where they sync to my devices.

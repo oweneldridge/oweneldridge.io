@@ -1,0 +1,27 @@
+name: Link check
+
+on:
+  schedule:
+    - cron: "20 11 * * 1"
+  workflow_dispatch:
+
+jobs:
+  links:
+    name: every link still resolves
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Check links
+        run: bash scripts/check-links.sh

@@ -1,0 +1,80 @@
+.page {
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
+}
+
+/* The one large thing on the site: what I do, in a sentence, across
+   both columns. Everything after it is set at reading size. */
+.statement {
+  font-size: clamp(1.75rem, 3.6vw, 2.25rem);
+  font-weight: 650;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+}
+
+/* The figures sit level with the statement and run down beside the
+   intro, so the first screen is one composition: a claim, and two
+   records that don't agree. Placed explicitly so the markup can keep
+   the reading order (statement, intro, figures) for narrow screens. */
+.recon {
+  grid-row: 1 / span 2;
+  margin-top: 0.4rem;
+}
+
+.intro {
+  margin-top: 1.5rem;
+}
+
+.lede {
+  font-size: 1.1875rem;
+  line-height: 1.55;
+}
+
+.after {
+  margin-top: 1rem;
+  color: var(--ink-muted);
+}
+
+.heading {
+  margin-top: 4rem;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.entry {
+  margin-top: 1.75rem;
+}
+
+.minor {
+  margin-top: 1.25rem;
+}
+
+.title {
+  font-size: 1.3rem;
+  font-weight: 650;
+}
+
+.minor .title {
+  font-size: 1.0625rem;
+}
+
+.summary {
+  margin-top: 0.3rem;
+}
+
+.minor .summary {
+  margin-top: 0.15rem;
+  color: var(--ink-muted);
+}
+
+@media (max-width: 62rem) {
+  .page {
+    padding-top: 2.75rem;
+  }
+
+  .recon {
+    grid-row: auto;
+    margin-top: 1.75rem;
+  }
+}

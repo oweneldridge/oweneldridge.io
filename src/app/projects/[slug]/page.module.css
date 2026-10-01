@@ -1,0 +1,36 @@
+.article {
+  padding-top: 2.5rem;
+  padding-bottom: 4.5rem;
+}
+
+.back {
+  font-size: 0.9375rem;
+}
+
+.title {
+  margin-top: 1.5rem;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  letter-spacing: -0.02em;
+}
+
+/* The opening paragraph is the outcome, written to be read first;
+   set it a step larger than the rest. The project facts come first in
+   the markup but are ordered after it, so the grid sets them level with
+   the opening paragraph instead of leaving a gap under the title. */
+.article :global(.prose) > p:first-of-type {
+  order: -2;
+  margin-top: 1.75rem;
+  font-size: 1.1875rem;
+  line-height: 1.55;
+}
+
+.article :global(.prose) > .facts {
+  order: -1;
+  margin-top: 0;
+}
+
+@media (max-width: 62rem) {
+  .article :global(.prose) > .facts {
+    margin-top: 0.75rem;
+  }
+}

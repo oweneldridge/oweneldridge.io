@@ -1,0 +1,33 @@
+---
+title: Spearmint
+summary: Core contributor to an accessibility-focused desktop GUI for generating JavaScript tests, with over a thousand GitHub stars.
+year: "2021 to 2022"
+tech:
+  - Electron
+  - React
+  - Redux
+  - TypeScript
+links:
+  - label: Source on GitHub
+    href: https://github.com/open-source-labs/spearmint
+featured: false
+order: 7
+---
+
+Spearmint is OS Labs' open-source tool for writing JavaScript tests
+without hand-writing the boilerplate: point it at a component or endpoint,
+describe the behavior, and it generates the test code. It isn't my
+project, but I helped build it: I joined as a core contributor through the
+OS Labs accelerator during the stretch where it grew past a thousand
+GitHub stars.
+
+My focus was making the app feel like a tool instead of a demo. I replaced
+heavyweight dependencies with lighter equivalents, which materially
+improved performance and cut the code editor's memory use by roughly 60
+percent while keeping full terminal emulation. I also pushed TypeScript
+coverage through the React-Redux layer so action creators, reducers, and
+state got checked at compile time instead of exploding at runtime.
+
+Accessibility was a founding concern of the project rather than a
+retrofit, which shaped how I think about interfaces to this day: keyboard
+paths and screen reader semantics are part of the feature.

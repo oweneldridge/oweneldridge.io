@@ -1,0 +1,42 @@
+---
+title: Audiobook player for KOReader
+summary: A KOReader plugin that turns a Kobo e-reader into a self-sufficient .m4b audiobook player over Bluetooth.
+year: "2026"
+tech:
+  - Lua
+  - mpv
+  - BlueZ
+  - Embedded Linux
+links: []
+featured: false
+order: 5
+---
+
+My Kobo Sage plays chaptered audiobooks over Bluetooth headphones now, from
+the same KOReader interface I read in, with playback position remembered
+per book. One small e-ink device covers both reading and listening, which
+is something the hardware could always do and the software never allowed.
+
+## What was missing
+
+Kobo's stock firmware initializes the Bluetooth chip only for its own
+narrow purposes, and nothing on the device could open an audiobook at all.
+Getting there meant a player, an audio stack, and a radio bring-up, all
+running inside an e-reader's spartan Linux.
+
+## Pairings that vanished on reboot
+
+The first working version forgot my headphones on every reboot: the
+Bluetooth chip comes up with a different device address each cold boot, so
+every pairing evaporated overnight. The fix runs at the lowest level the
+plugin touches. It fires the rfkill GPIO, attaches the HCI transport with a
+bundled hciattach, then writes a stable address back into the chip with
+Broadcom's vendor command. The real address gets captured once and kept in
+a small state file, and pairings have survived every reboot since.
+
+## A player that anyone can rebuild
+
+The other fragile piece was audio. mpv doesn't exist for Kobo, and a
+hand-built binary that only compiles on one laptop breaks the day that
+laptop changes, so the build runs inside KOReader's own cross-compilation
+container. Anyone with the container can reproduce the exact binary.

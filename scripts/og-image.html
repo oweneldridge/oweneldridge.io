@@ -1,0 +1,54 @@
+<!doctype html>
+<!-- Source for public/og.png, the card image behind link previews.
+     Rendered at 1200x630 by scripts/make-og-image.sh using the same
+     vendored font as the site. Edit this, rerun the script, commit both. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face {
+    font-family: "Atkinson Hyperlegible Next";
+    src: url("../src/fonts/atkinson-hyperlegible-next-latin-wght-normal.woff2") format("woff2");
+    font-weight: 200 800;
+  }
+  * { margin: 0; box-sizing: border-box; }
+  body {
+    width: 1200px;
+    height: 630px;
+    background: #ffffff;
+    color: #1a2230;
+    font-family: "Atkinson Hyperlegible Next", Arial, sans-serif;
+    padding: 76px 88px 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .name {
+    font-size: 34px;
+    font-weight: 700;
+  }
+  .statement {
+    font-size: 66px;
+    font-weight: 650;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    max-width: 1000px;
+  }
+  .url {
+    font-size: 30px;
+    color: #1f45a6;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
+  }
+</style>
+</head>
+<body>
+  <div class="name">Owen Eldridge</div>
+  <div class="statement">
+    Full-stack engineer working on money in regulated industries: payments
+    infrastructure, and now pharmacy claims.
+  </div>
+  <div class="url">oweneldridge.io</div>
+</body>
+</html>

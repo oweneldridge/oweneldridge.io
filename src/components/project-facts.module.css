@@ -1,0 +1,21 @@
+.facts {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+}
+
+.disclosure {
+  margin-top: 0.3rem;
+}
+
+.year {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+@media (max-width: 62rem) {
+  .facts {
+    margin-top: 0.5rem;
+  }
+}

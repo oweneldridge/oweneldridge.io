@@ -1,0 +1,37 @@
+.footer {
+  max-width: calc(var(--page) + 2.5rem);
+  margin: auto auto 0;
+  padding: 0 1.25rem 2.5rem;
+  width: 100%;
+}
+
+@media (max-width: 62rem) {
+  .footer {
+    max-width: calc(var(--measure) + 2.5rem);
+  }
+}
+
+.inner {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  list-style: none;
+}
+
+.note {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--ink-muted);
+}
+
+/* Keep the contact links on a printed page, drop the note. */
+@media print {
+  .note {
+    display: none;
+  }
+}

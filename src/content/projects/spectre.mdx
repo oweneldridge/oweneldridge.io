@@ -1,0 +1,41 @@
+---
+title: Spectre, a self-hosted everything
+summary: Twenty-nine containers on a repurposed laptop, replacing a household's worth of cloud subscriptions.
+year: "2025 to now"
+tech:
+  - Arch Linux
+  - Docker
+  - Tailscale
+  - PostgreSQL
+  - Bash
+links: []
+featured: true
+order: 3
+---
+
+An HP laptop that stopped being a laptop and became the family
+infrastructure: photo library, password manager, document archive, ebook
+library, media server, and an offline copy of Wikipedia, all self-hosted
+on Arch Linux and Docker. Twenty-nine containers, zero restart loops, no
+subscription renewals, and nothing reachable from the public internet.
+
+## How it fits together
+
+Every service sits behind Tailscale with per-service HTTPS. Backups are
+layered: nightly local mirrors with database dumps, versioned document
+history, and an encrypted offsite set.
+
+## Auditing it like a stranger would
+
+This year I audited my own stack with a dozen Claude Code agents working
+in parallel, combing containers, permissions, backups, and network
+exposure. I checked every finding myself before it counted. The audit
+found real problems. The photo library's database had no backup of its
+own. Secrets sat world-readable on disk. And the nightly backup script
+reported success while skipping failures.
+
+Those three were fixed the same day: the database now dumps nightly to two
+drives, permissions are locked to 600, and the script checks every exit
+code and says so when something fails. The rest of the findings went on a
+follow-up list. Some closed over the next two days and some are still
+open.

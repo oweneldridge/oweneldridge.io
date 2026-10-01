@@ -1,0 +1,86 @@
+.recon {
+  margin: 0;
+}
+
+.caption {
+  font-size: 0.8125rem;
+}
+
+.table {
+  margin-top: 0.4rem;
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.table th,
+.table td {
+  padding: 0.12rem 0.35rem;
+  text-align: right;
+  font-weight: 400;
+}
+
+.table th[scope="row"] {
+  text-align: left;
+  padding-left: 0.25rem;
+}
+
+.table thead th {
+  color: var(--ink-muted);
+  font-size: 0.8125rem;
+}
+
+.table tbody td,
+.table tfoot td {
+  color: var(--ink);
+}
+
+.table tfoot th,
+.table tfoot td {
+  border-top: 1px solid var(--rule);
+  font-weight: 600;
+}
+
+/* The row that stopped agreeing, marked the way it would be on a
+   printed report once someone opens the explanation. */
+.recon:has(.details[open]) .off th,
+.recon:has(.details[open]) .off td {
+  background: var(--mark);
+  color: var(--ink);
+}
+
+.details {
+  margin-top: 0.5rem;
+}
+
+.details summary {
+  cursor: pointer;
+  color: var(--link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.details summary:hover {
+  text-decoration-thickness: 2px;
+}
+
+.details p {
+  margin-top: 0.4rem;
+}
+
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 62rem) {
+  .recon {
+    margin-top: 1.5rem;
+    max-width: 20rem;
+  }
+}

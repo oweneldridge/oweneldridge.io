@@ -1,0 +1,62 @@
+---
+title: The compliance edge of a payments platform
+summary: "Technical lead on the parts of a payment facilitator where money movement runs into regulation: onboarding, screening, and card-present processing."
+year: "2023 to 2025"
+tech:
+  - Python
+  - AWS Lambda
+  - DynamoDB
+  - Next.js
+  - TypeScript
+links: []
+disclosure: Employer work. The code is private, and nothing internal appears here.
+featured: true
+order: 2
+---
+
+I was technical lead for payments at Indigo Tech Group, a Mindbody company
+since renamed Kite Technologies and now a registered payment facilitator.
+My work sat on the side of it where moving money stops being an
+engineering problem and starts being a regulatory one.
+
+## What a payment facilitator takes on
+
+Becoming a payment facilitator means taking on obligations a bank would
+otherwise hold. Before a merchant can process a payment, somebody has to
+establish that the business is real, that the people behind it are who they
+claim, and that none of them appear on a sanctions list. That is beneficial
+ownership verification and screening, and most of it is data work: identity
+evidence arrives incomplete, entities change shape, and the answer has to
+hold up months later when somebody asks how you reached it.
+
+<Note>
+
+The public rules behind it: FinCEN's [customer due diligence rule](https://www.fincen.gov/resources/statutes-and-regulations/cdd-final-rule) and OFAC's [sanctions lists](https://ofac.treasury.gov/specially-designated-nationals-and-blocked-persons-list-sdn-human-readable-lists).
+
+</Note>
+
+The rest of what I worked on had the same character. Card-present
+processing from terminal communication through to the stored transaction,
+integrating a processor's cloud API. Webhook subscription management on
+Lambda and DynamoDB, so external systems learned about payment events in
+close to real time. A payment component embedded in the core application
+for card and bank account entry. PCI compliance was a standing constraint
+on every one of those decisions from the start.
+
+<Note>
+
+The card industry's security standard: [PCI DSS](https://www.pcisecuritystandards.org/standards/pci-dss/).
+
+</Note>
+
+## What carried over to claims
+
+Payments taught me the habit I now use on pharmacy claims. The failures
+that matter are values that look completely plausible and are wrong, in
+systems where nobody notices until money or a regulator does. A funds
+transfer that reconciles to the wrong fee, an entity that passes a check it
+should have failed, a transaction stored in a shape that reads fine until
+someone asks a question a year later.
+
+So I write tests around the monetary edge cases, and I would rather build a
+verification step than trust a report.
