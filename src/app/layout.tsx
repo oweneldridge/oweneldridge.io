@@ -8,7 +8,8 @@ import "./globals.css";
 // alongside) so nothing is fetched from Google at build time or ever. The
 // Braille Institute drew it so characters people commonly confuse (I, l
 // and 1; O and 0; rn and m) stay distinct, which suits a site about
-// numbers that have to agree. One family, upright and italic.
+// numbers that have to agree. Upright only: nothing on the site is set
+// in italic, so the italic file would be 37 KB nobody downloads for.
 const sans = localFont({
   variable: "--font-sans",
   adjustFontFallback: "Arial",
@@ -17,11 +18,6 @@ const sans = localFont({
       path: "../fonts/atkinson-hyperlegible-next-latin-wght-normal.woff2",
       weight: "200 800",
       style: "normal",
-    },
-    {
-      path: "../fonts/atkinson-hyperlegible-next-latin-wght-italic.woff2",
-      weight: "200 800",
-      style: "italic",
     },
   ],
 });
