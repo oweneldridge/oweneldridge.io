@@ -1,23 +1,54 @@
+import type { CSSProperties } from "react";
 import styles from "./reconciliation.module.css";
 
-// Two records of the same week that should agree and don't. The figures
-// are invented; the habit is the point: when a difference divides evenly
-// by nine, look for two swapped digits. Opening the disclosure marks the
-// row (CSS :has on the open <details>), so it needs no script.
+// Two records of the same week that should agree and don't, and the
+// check that finds out why: each row is compared in turn, Wednesday is
+// the one that fails, and its two transposed digits trade places to show
+// the ledger and bank figures are the same number keyed two ways. The
+// figures are invented.
+//
+// Pure CSS. The resting styles are the finished check, so reduced motion
+// (and any browser that skips the animation) gets the answer straight
+// away. Replay works without script: the check is rendered twice and the
+// toggle swaps which copy is displayed, and an element that goes from
+// display: none to shown starts its animations from the beginning.
+
 const rows = [
   { day: "Mon", ledger: "2,418.60", bank: "2,418.60" },
   { day: "Tue", ledger: "975.25", bank: "975.25" },
-  { day: "Wed", ledger: "1,240.00", bank: "1,204.00", off: true },
+  { day: "Wed", ledger: "1,240.00", bank: "1,204.00" },
   { day: "Thu", ledger: "3,062.40", bank: "3,062.40" },
   { day: "Fri", ledger: "512.75", bank: "512.75" },
 ];
 
-export function Reconciliation({ className = "" }: { className?: string }) {
+// Wednesday's figures, split so the two transposed digits can be marked,
+// and in the ledger, moved.
+function Transposed({
+  first,
+  second,
+  moves,
+}: {
+  first: string;
+  second: string;
+  moves: boolean;
+}) {
   return (
-    <figure className={`aside ${styles.recon} ${className}`}>
-      <figcaption className={styles.caption}>
-        Two records of the same week (invented figures)
-      </figcaption>
+    <>
+      1,2
+      <span className={`${styles.digit} ${moves ? styles.goesRight : ""}`}>
+        {first}
+      </span>
+      <span className={`${styles.digit} ${moves ? styles.goesLeft : ""}`}>
+        {second}
+      </span>
+      .00
+    </>
+  );
+}
+
+function Check({ className }: { className: string }) {
+  return (
+    <div className={className}>
       <table className={styles.table}>
         <thead>
           <tr>
@@ -26,33 +57,78 @@ export function Reconciliation({ className = "" }: { className?: string }) {
             </th>
             <th scope="col">Ledger</th>
             <th scope="col">Bank</th>
+            <th scope="col">
+              <span className={styles.hidden}>Agrees?</span>
+            </th>
           </tr>
         </thead>
         <tbody>
-          {rows.map((row) => (
-            <tr key={row.day} className={row.off ? styles.off : undefined}>
-              <th scope="row">{row.day}</th>
-              <td>{row.ledger}</td>
-              <td>{row.bank}</td>
-            </tr>
-          ))}
+          {rows.map((row, i) => {
+            const off = row.ledger !== row.bank;
+            return (
+              <tr
+                key={row.day}
+                className={off ? styles.off : undefined}
+                style={{ "--i": i } as CSSProperties}
+              >
+                <th scope="row">{row.day}</th>
+                <td>
+                  {off ? <Transposed first="4" second="0" moves /> : row.ledger}
+                </td>
+                <td>
+                  {off ? (
+                    <Transposed first="0" second="4" moves={false} />
+                  ) : (
+                    row.bank
+                  )}
+                </td>
+                <td className={styles.mark}>
+                  <span aria-hidden="true">{off ? "✗" : "✓"}</span>
+                  <span className={styles.hidden}>
+                    {off ? "does not match" : "matches"}
+                  </span>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
         <tfoot>
           <tr>
             <th scope="row">Total</th>
             <td>8,209.00</td>
             <td>8,173.00</td>
+            <td className={styles.mark}>
+              <span aria-hidden="true">{"≠"}</span>
+              <span className={styles.hidden}>does not match</span>
+            </td>
           </tr>
         </tfoot>
       </table>
-      <details className={styles.details}>
-        <summary>Off by 36.00. Where?</summary>
-        <p>
-          Wednesday: 1,240.00 in the ledger, 1,204.00 at the bank. A
-          difference that divides evenly by 9 is the old bookkeeping hint
-          that two digits got swapped.
+      <div className={styles.notes}>
+        <p className={styles.checking} aria-hidden="true">
+          The totals are 36.00 apart. Checking each row&hellip;
         </p>
-      </details>
+        <p className={styles.found}>
+          Off by 36.00, and 36 divides by 9: the usual sign of two swapped
+          digits. Wednesday was keyed as 1,240.00 instead of 1,204.00.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+export function Reconciliation({ className = "" }: { className?: string }) {
+  return (
+    <figure className={`aside ${styles.recon} ${className}`}>
+      <figcaption className={styles.caption}>
+        Two records of the same week, with invented figures.
+      </figcaption>
+      <Check className={styles.runA} />
+      <Check className={styles.runB} />
+      <label className={styles.replay}>
+        <input type="checkbox" className={styles.toggle} />
+        Replay the check
+      </label>
     </figure>
   );
 }
