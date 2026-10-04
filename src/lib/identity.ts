@@ -3,6 +3,8 @@
 // other, and to connect the site to the same person's other profiles.
 // Only facts already public on the site, the resume, or GitHub.
 
+import { resume } from "@/content/resume";
+
 export const SITE = "https://oweneldridge.io";
 export const PERSON_ID = `${SITE}/#owen`;
 
@@ -14,7 +16,7 @@ export const person = {
   jobTitle: "Software Engineer",
   description:
     "Full-stack engineer working on money in regulated industries: payments infrastructure, now pharmacy claims, and proving the numbers still reconcile.",
-  email: "mailto:owen.eldridge@pm.me",
+  email: `mailto:${resume.email}`,
   homeLocation: {
     "@type": "Place",
     name: "Tampa Bay Area, Florida, United States",

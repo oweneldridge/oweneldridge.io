@@ -1,5 +1,6 @@
 import { execSync } from "node:child_process";
 import styles from "./site-footer.module.css";
+import { resume } from "@/content/resume";
 
 // The date of the last commit, read at build time, so the footer says
 // when the content last changed rather than when it was last deployed.
@@ -24,7 +25,7 @@ export function SiteFooter() {
       <div className={styles.inner}>
         <ul className={styles.links}>
           <li>
-            <a href="mailto:owen.eldridge@pm.me">owen.eldridge@pm.me</a>
+            <a href={`mailto:${resume.email}`}>{resume.email}</a>
           </li>
           <li>
             <a href="https://github.com/oweneldridge">GitHub</a>
