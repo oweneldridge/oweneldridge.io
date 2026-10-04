@@ -9,9 +9,11 @@ import styles from "./reconciliation.module.css";
 //
 // Pure CSS. The resting styles are the finished check, so reduced motion
 // (and any browser that skips the animation) gets the answer straight
-// away. Replay works without script: the check is rendered twice and the
-// toggle swaps which copy is displayed, and an element that goes from
-// display: none to shown starts its animations from the beginning.
+// away. Replay works without script: the toggle switches every animation
+// to an identical copy of its keyframes under another name, and a changed
+// animation name starts over. The table exists once, so anything reading
+// the page as text (a screen reader, a search engine, an AI assistant)
+// sees it once.
 
 const rows = [
   { day: "Mon", ledger: "2,418.60", bank: "2,418.60" },
@@ -46,9 +48,9 @@ function Transposed({
   );
 }
 
-function Check({ className }: { className: string }) {
+function Check() {
   return (
-    <div className={className}>
+    <div>
       <table className={styles.table}>
         <thead>
           <tr>
@@ -123,8 +125,7 @@ export function Reconciliation({ className = "" }: { className?: string }) {
       <figcaption className={styles.caption}>
         Two records of the same week, with invented figures.
       </figcaption>
-      <Check className={styles.runA} />
-      <Check className={styles.runB} />
+      <Check />
       <label className={styles.replay}>
         <input type="checkbox" className={styles.toggle} />
         Replay the check

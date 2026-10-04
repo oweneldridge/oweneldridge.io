@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import { resume } from "@/content/resume";
+import { person } from "@/lib/identity";
 import { getProjectBody, listProjects, type Project } from "@/lib/projects";
 
 // Plain-text copies of the site for AI agents (llmstxt.org). Built from the
@@ -14,9 +15,26 @@ function aboutBody(): string {
   return matter(raw).content.trim();
 }
 
-// The about page's first paragraph is the current one-line pitch.
+// The one-line pitch, the same sentence as the site's meta description.
 function summary(): string {
-  return aboutBody().split(/\n\s*\n/)[0].replace(/\s*\n\s*/g, " ");
+  return person.description;
+}
+
+// Quick facts for an agent summarising a candidate, built from the resume
+// data and the identity record so they can't disagree with the pages.
+function facts(): string[] {
+  const [current, ...earlier] = resume.experience;
+  return [
+    "## Facts",
+    "",
+    `- Now: ${current.title}, ${current.company} (${current.context}), ${current.dates}`,
+    ...earlier.map((r) => `- Before: ${r.title}, ${r.company} (${r.context}), ${r.dates}`),
+    `- Location: ${person.homeLocation.name}`,
+    `- Education: ${resume.education}`,
+    `- Contact: ${resume.email}`,
+    `- Profiles: ${person.sameAs.join(", ")}`,
+    "",
+  ];
 }
 
 function absolute(markdown: string): string {
@@ -48,10 +66,11 @@ export function llmsIndex(): string {
     "",
     `> ${summary()}`,
     "",
-    `${resume.headline}. Contact: ${resume.email}. The whole site as one Markdown file: ${SITE}/llms-full.txt`,
+    `${resume.headline}. The whole site as one Markdown file: ${SITE}/llms-full.txt`,
     "",
     "Views here are my own and don't represent any employer.",
     "",
+    ...facts(),
     "## Pages",
     "",
     `- [About](${SITE}/about/): how I went from consumer finance operations to engineering payments and pharmacy claims systems, and how I work`,
@@ -130,6 +149,7 @@ export function llmsFull(): string {
     "",
     "Views here are my own and don't represent any employer.",
     "",
+    ...facts(),
     "## About",
     "",
     absolute(demote(unwrapNotes(aboutBody()), 2)),

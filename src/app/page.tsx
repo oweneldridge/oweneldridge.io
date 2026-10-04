@@ -1,7 +1,10 @@
 import { Fragment } from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
+import { JsonLd } from "@/components/json-ld";
 import { ProjectFacts } from "@/components/project-facts";
 import { Reconciliation } from "@/components/reconciliation";
+import { PERSON_ID, SITE, profilePage } from "@/lib/identity";
 import { listProjects, type Project } from "@/lib/projects";
 import styles from "./page.module.css";
 
@@ -26,6 +29,25 @@ function Entry({ project, detailed }: { project: Project; detailed: boolean }) {
   );
 }
 
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
+
+const homeData = {
+  ...profilePage("/"),
+  "@graph": [
+    ...profilePage("/")["@graph"],
+    {
+      "@type": "WebSite",
+      "@id": `${SITE}/#website`,
+      url: `${SITE}/`,
+      name: "Owen Eldridge",
+      author: { "@id": PERSON_ID },
+      inLanguage: "en",
+    },
+  ],
+};
+
 export default function Home() {
   const projects = listProjects();
   const featured = projects.filter((p) => p.featured);
@@ -33,6 +55,7 @@ export default function Home() {
 
   return (
     <div className={`frame ${styles.page}`}>
+      <JsonLd data={homeData} />
       <h1 className={styles.statement}>
         I&rsquo;m a full-stack engineer working on money in regulated
         industries: payments infrastructure, and now pharmacy claims.

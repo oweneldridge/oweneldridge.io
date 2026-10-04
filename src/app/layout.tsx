@@ -30,6 +30,7 @@ export const metadata: Metadata = {
   },
   description:
     "Full-stack engineer working on money in regulated industries: payments infrastructure, now pharmacy claims, and proving the numbers still reconcile.",
+  authors: [{ name: "Owen Eldridge", url: "https://oweneldridge.io" }],
   openGraph: {
     siteName: "Owen Eldridge",
     type: "website",

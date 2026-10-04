@@ -1,15 +1,19 @@
 import type { Metadata } from "next";
 import { resume } from "@/content/resume";
+import { JsonLd } from "@/components/json-ld";
+import { profilePage } from "@/lib/identity";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
   title: { absolute: "Owen Eldridge, resume" },
+  alternates: { canonical: "/resume/" },
   description: "Owen Eldridge's resume: full stack software engineer.",
 };
 
 export default function ResumePage() {
   return (
     <article className={`frame ${styles.article}`} data-print="resume">
+      <JsonLd data={profilePage("/resume/")} />
       <header className={styles.top}>
         <div>
           <p className={styles.printName}>{resume.name}</p>
