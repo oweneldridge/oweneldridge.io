@@ -24,9 +24,11 @@ function summary(): string {
 // data and the identity record so they can't disagree with the pages.
 function facts(): string[] {
   const [current, ...earlier] = resume.experience;
+  const since = Math.min(...resume.experience.map((r) => Number(r.dates.slice(0, 4))));
   return [
     "## Facts",
     "",
+    `- Writing software since ${since}`,
     `- Now: ${current.title}, ${current.company} (${current.context}), ${current.dates}`,
     ...earlier.map((r) => `- Before: ${r.title}, ${r.company} (${r.context}), ${r.dates}`),
     `- Location: ${person.homeLocation.name}`,
