@@ -31,7 +31,7 @@ function facts(): string[] {
     `- Writing software since ${since}`,
     `- Now: ${current.title}, ${current.company} (${current.context}), ${current.dates}`,
     ...earlier.map((r) => `- Before: ${r.title}, ${r.company} (${r.context}), ${r.dates}`),
-    `- Location: ${person.homeLocation.name}`,
+    `- Location: ${resume.location}`,
     `- Education: ${resume.education}`,
     `- Contact: ${resume.email}`,
     `- Profiles: ${person.sameAs.join(", ")}`,

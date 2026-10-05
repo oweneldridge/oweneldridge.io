@@ -19,6 +19,7 @@ export default function ResumePage() {
           <p className={styles.printName}>{resume.name}</p>
           <h1 className={styles.title}>Resume</h1>
           <p className={styles.headline}>{resume.headline}</p>
+          <p className={styles.where}>{resume.location}</p>
           <p className={styles.printContact}>
             {[resume.email, resume.site, ...resume.links.map((l) => l.label)].map(
               (item) => (

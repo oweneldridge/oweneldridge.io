@@ -18,6 +18,7 @@ export type Role = {
 export const resume = {
   name: "Owen Eldridge",
   headline: "Full Stack Software Engineer",
+  location: "Remote, US-based (Tampa Bay Area, Florida)",
   email: "hello@oweneldridge.io",
   // Printed on the PDF only: it travels away from the site, so it should
   // say where home is. On screen you are already here.

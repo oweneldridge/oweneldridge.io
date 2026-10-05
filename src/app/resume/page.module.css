@@ -18,9 +18,14 @@
   letter-spacing: -0.02em;
 }
 
-.headline {
+.headline,
+.where {
   margin-top: 0.3rem;
   color: var(--ink-muted);
+}
+
+.where {
+  margin-top: 0;
 }
 
 .download {
@@ -137,9 +142,14 @@
     letter-spacing: -0.01em;
   }
 
-  .headline {
+  .headline,
+  .where {
     margin-top: 0.1rem;
     font-size: 10.6pt;
+  }
+
+  .where {
+    margin-top: 0;
   }
 
   .printContact {
@@ -220,7 +230,8 @@
   }
 
   .roleContext,
-  .headline {
+  .headline,
+  .where {
     color: #222;
   }
 
