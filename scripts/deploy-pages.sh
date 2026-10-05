@@ -38,7 +38,26 @@ if git -C "$workdir" diff --cached --quiet; then
   echo "nothing changed since the last publish"
   exit 0
 fi
+changed=$(git -C "$workdir" diff --cached --name-only)
 git -C "$workdir" commit -q -m "publish $version"
 git -C "$workdir" push -q origin "$branch"
 
 echo "published $version to $branch"
+
+# Tell the IndexNow search engines (Bing, Yandex, Seznam, Naver) which
+# pages just changed, so they don't wait for a crawl to notice. The key
+# file in public/ proves the site is mine. A failed ping is only a
+# warning: the pages are already live.
+key_file=$(ls public | grep -E '^[0-9a-f]{32}\.txt$' | head -1 || true)
+if [ -n "$key_file" ]; then
+  body=$(printf '%s\n' "$changed" | node scripts/indexnow-body.mjs "${key_file%.txt}")
+  if [ -n "$body" ]; then
+    status=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 \
+      -X POST https://api.indexnow.org/indexnow \
+      -H "Content-Type: application/json; charset=utf-8" -d "$body" || true)
+    case "$status" in
+      200|202) echo "indexnow: accepted ($status)" ;;
+      *) echo "indexnow: not accepted (HTTP $status), pages are live anyway" >&2 ;;
+    esac
+  fi
+fi
