@@ -93,8 +93,8 @@ export const resume = {
       ],
     },
     {
-      company: "Spearmint (OS Labs)",
-      title: "Core Contributor, Full Stack",
+      company: "Spearmint (OS Labs open-source accelerator)",
+      title: "Software Engineer",
       context:
         "Accessibility-focused GUI for generating JavaScript tests, 1,000+ GitHub stars",
       dates: "2021 to 2022",
